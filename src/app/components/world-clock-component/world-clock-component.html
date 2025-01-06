@@ -1,0 +1,29 @@
+<select [(ngModel)]="selectedTimeZone" class="bg-gray-200 rounded-xl mt-3 p-2">
+  @for (zone of timeZones; track $index) {
+  <option [value]="zone.name">
+    {{ zone.name }} (UTC{{ zone.offset >= 0 ? '+' : '' }}{{ zone.offset }})
+  </option>
+  }
+</select>
+
+<button
+  (click)="addTimeZone()"
+  class="py-2 px-2 bg-blue-400 rounded-xl font-bold flex items-center gap-1 text-gray-100"
+>
+  <span>Add</span><span class="text-2xl">+</span>
+</button>
+
+<div
+  class="h-[calc(100vh-169px)] rounded-3xl bg-gray-300 w-full flex flex-col items-center gap-2 p-4"
+>
+  <h2 class="text-gray-500 font-medium text-xl">TIMES:</h2>
+  @if (userTimeZones.length > 0) {
+  <ul>
+    @for (zone of userTimeZones; track $index) {
+    <li>{{ zone.name }}: {{ getCurrentTime(zone.offset) }}</li>
+    }
+  </ul>
+  } @else{
+  <h2>NO TIME ZONE IMPORTED!</h2>
+  }
+</div>

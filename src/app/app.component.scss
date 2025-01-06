@@ -1,0 +1,8 @@
+button {
+  &.active {
+    color: rgb(19, 158, 238);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: bold;
+  }
+}
