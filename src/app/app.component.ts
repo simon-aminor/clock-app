@@ -18,7 +18,7 @@ import { AlarmComponent } from './components/alarm-component/alarm-component';
 })
 export class AppComponent {
   title = 'clock-app';
-  activeButton: string = 'World clock';
+  activeButton: string = 'Alarm';
   componentClickhandler(button: string) {
     this.activeButton = button;
   }

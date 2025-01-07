@@ -1,6 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { TIME_ZONES, TimeZone } from './time-zone';
 import { FormsModule } from '@angular/forms';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-world-clock-component',
@@ -14,6 +15,14 @@ export class WorldClockComponent {
   selectedTimeZone: string | null = null; //user choice
   userTimeZones: TimeZone[] = []; //   users selection
 
+  //   ngOnInit(): void {
+  //     interval(1000).subscribe(() => {
+  // this.userTimeZones.forEach((el)=>{
+  //   el.
+  // })
+  //     });
+  //   }
+  subscription!: Subscription;
   getCurrentTime(offset: number): string {
     if (offset === null) {
       return ''; // Handle case where no time zone is selected
@@ -29,10 +38,18 @@ export class WorldClockComponent {
         (e) => e.name === this.selectedTimeZone
       );
       if (selected) this.userTimeZones.push(selected);
+      this.subscription = interval(1000).subscribe((userTimeZones) => {
+        userTimeZones;
+      });
       this.selectedTimeZone = null; // Clear selection after adding
     }
   }
-
+  // this.selectedTimeZone.forEach((el)=>{el.})
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   removeTimeZone(zone: TimeZone) {
     this.userTimeZones = this.userTimeZones.filter((z) => z !== zone);
   }

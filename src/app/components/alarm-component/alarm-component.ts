@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlarmCardComponent } from '../alarm-card-component/alarm-card-component';
+import { PopupComponent } from './popup/popup.component';
 
 @Component({
   selector: 'app-alarm',
   standalone: true,
-  imports: [CommonModule, AlarmCardComponent],  // Import CommonModule and AlarmCardComponent
+  imports: [CommonModule, AlarmCardComponent, PopupComponent], // Import CommonModule and AlarmCardComponent
   templateUrl: './alarm-component.html',
   styleUrl: './alarm-component.scss',
 })
 export class AlarmComponent {
+  // Example list of alarm times
+  showAddPopup = signal(false);
+
   alarms: Date[] = [
     new Date('2025-01-05T07:00:00'), // Example alarm time 1
     new Date('2025-01-05T08:15:00'), // Example alarm time 2
@@ -29,12 +33,12 @@ export class AlarmComponent {
   }
 
   // Add a new alarm
-  addAlarm(newAlarmTime: string) {
-    this.alarms.push(new Date(newAlarmTime));
+  addAlarm() {
+    this.showAddPopup.set(true);
   }
 
   // Remove an alarm
   removeAlarm(alarm: Date) {
-    this.alarms = this.alarms.filter(a => a !== alarm);
+    this.alarms = this.alarms.filter((a) => a !== alarm);
   }
 }
