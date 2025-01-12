@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlarmCardComponent } from '../alarm-card-component/alarm-card-component';
 import { PopupComponent } from './popup/popup.component';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-alarm',
@@ -17,25 +17,13 @@ export class AlarmComponent {
   router: Router = inject(Router);
 
   ngOnInit(): void {
-    console.log("alarm component");
-    
     if (localStorage.getItem('alarmList')) {
       this.alarms.push(JSON.parse(localStorage.getItem('alarmList') ?? ''));
       this.alarms.sort();
     }
   }
 
-  alarms: string[] = [
-    '12:30',
-    '14:00',
-    '18:35',
-    '22:12',
-    '20:00',
-    '23:00',
-    '10:56',
-    '08:00',
-    '06:45',
-  ];
+  alarms: string[] = [];
   constructor() {
     this.alarms.sort();
   }

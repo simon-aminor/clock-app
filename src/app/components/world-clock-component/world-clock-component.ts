@@ -32,7 +32,7 @@ export class WorldClockComponent {
     const localTime = new Date(utcTime); // milliseconds to readble time
     return localTime.toLocaleTimeString(); //to string and 24 or 12 hour
   }
-  ngOnInit(): void {
+  constructor() {
     console.log('world clock component');
     if (localStorage.getItem('user timezone')) {
       this.userTimeZones = JSON.parse(
