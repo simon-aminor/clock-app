@@ -4,11 +4,12 @@
     [(ngModel)]="selectedTimeZone"
     class="bg-gray-200 rounded-xl mt-3 p-2 mb-2"
   >
+    <option value="" disabled hidden>Select Time Zone</option>
     @for (zone of timeZones; track $index) {
     <option [value]="zone.name">
       {{ zone.name }} (UTC{{ zone.offset >= 0 ? '+' : '' }}{{ zone.offset }})
     </option>
-    } 
+    }
   </select>
 
   <button

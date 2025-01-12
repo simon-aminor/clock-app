@@ -17,8 +17,9 @@ export class AlarmComponent {
   router: Router = inject(Router);
 
   ngOnInit(): void {
+    console.log("alarm component");
+    
     if (localStorage.getItem('alarmList')) {
-     // debugger;
       this.alarms.push(JSON.parse(localStorage.getItem('alarmList') ?? ''));
       this.alarms.sort();
     }

@@ -12,7 +12,7 @@ import { TimeZone, TIME_ZONES } from './time-zone';
 })
 export class WorldClockComponent {
   timeZones: TimeZone[] = TIME_ZONES; // list of times available
-  selectedTimeZone: string | null = null; //user choice
+  selectedTimeZone: string = ''; //user choice
   userTimeZones: TimeZone[] = []; //   users selection
 
   //   ngOnInit(): void {
@@ -32,19 +32,31 @@ export class WorldClockComponent {
     const localTime = new Date(utcTime); // milliseconds to readble time
     return localTime.toLocaleTimeString(); //to string and 24 or 12 hour
   }
+  ngOnInit(): void {
+    console.log('world clock component');
+    if (localStorage.getItem('user timezone')) {
+      this.userTimeZones = JSON.parse(
+        localStorage.getItem('user timezone') ?? ''
+      );
+      this.refresh();
+    }
+  }
   addTimeZone() {
     if (this.selectedTimeZone) {
       const selected = this.timeZones.find(
         (e) => e.name === this.selectedTimeZone
       );
       if (selected) this.userTimeZones.push(selected);
-      this.subscription = interval(1000).subscribe((userTimeZones) => {
-        userTimeZones;
-      });
-      this.selectedTimeZone = null; // Clear selection after adding
+      this.refresh();
+      localStorage.setItem('user timezone', JSON.stringify(this.userTimeZones));
+      this.selectedTimeZone = ''; // Clear selection after adding
     }
   }
-  // this.selectedTimeZone.forEach((el)=>{el.})
+  refresh() {
+    this.subscription = interval(1000).subscribe((userTimeZones) => {
+      userTimeZones;
+    });
+  }
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
