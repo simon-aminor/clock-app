@@ -1,20 +1,25 @@
-<select [(ngModel)]="selectedTimeZone" class="bg-gray-200 rounded-xl mt-3 p-2">
-  @for (zone of timeZones; track $index) {
-  <option [value]="zone.name">
-    {{ zone.name }} (UTC{{ zone.offset >= 0 ? '+' : '' }}{{ zone.offset }})
-  </option>
-  }
-</select>
+<div class="flex flex-col items-center">
+  <select
+    required
+    [(ngModel)]="selectedTimeZone"
+    class="bg-gray-200 rounded-xl mt-3 p-2 mb-2"
+  >
+    @for (zone of timeZones; track $index) {
+    <option [value]="zone.name">
+      {{ zone.name }} (UTC{{ zone.offset >= 0 ? '+' : '' }}{{ zone.offset }})
+    </option>
+    } 
+  </select>
 
-<button
-  (click)="addTimeZone()"
-  class="py-2 px-2 bg-blue-400 rounded-xl font-bold flex items-center gap-1 text-gray-100"
-  [disabled]="!selectedTimeZone"
-  [style.opacity]="selectedTimeZone ? '1' : '0.5'"
->
-  <span>Add</span><span class="text-2xl">+</span>
-</button>
-
+  <button
+    (click)="addTimeZone()"
+    class="py-2 px-2 bg-blue-400 rounded-xl font-bold flex items-center gap-1 text-gray-100 mb-2"
+    [disabled]="!selectedTimeZone"
+    [style.opacity]="selectedTimeZone ? '1' : '0.5'"
+  >
+    <span>Add</span><span class="text-2xl">+</span>
+  </button>
+</div>
 <div
   class="h-[calc(100vh-169px)] rounded-3xl bg-gray-300 w-full flex flex-col items-center gap-2 p-4"
 >

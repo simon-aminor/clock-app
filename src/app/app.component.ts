@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { StopwatchComponent } from './components/stopwatch-component/stopwatch-component';
 import { WorldClockComponent } from './components/world-clock-component/world-clock-component';
 import { AlarmComponent } from './components/alarm-component/alarm-component';
@@ -17,9 +17,13 @@ import { AlarmComponent } from './components/alarm-component/alarm-component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  router: Router = inject(Router);
   title = 'clock-app';
   activeButton: string = 'Alarm';
-  componentClickhandler(button: string) {
-    this.activeButton = button;
+  navigateComponent(buttonTitle: string) {
+    this.activeButton = buttonTitle;
+    this.router.navigate([buttonTitle], {
+      queryParams: { title: buttonTitle },
+    });
   }
 }

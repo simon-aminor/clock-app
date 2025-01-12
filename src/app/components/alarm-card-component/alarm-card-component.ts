@@ -9,8 +9,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./alarm-card-component.scss'],
 })
 export class AlarmCardComponent {
-  @Input() alarm!: Date; // Alarm input
-  @Output() remove = new EventEmitter<Date>(); // Output for remove event
+  @Input() alarm!: string; // Alarm input
+  @Output() remove = new EventEmitter<string>(); // Output for remove event
 
   // Method to remove the alarm
   onRemove() {

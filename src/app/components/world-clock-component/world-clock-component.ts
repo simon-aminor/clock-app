@@ -1,7 +1,7 @@
-import { Component, effect, signal } from '@angular/core';
-import { TIME_ZONES, TimeZone } from './time-zone';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { interval, Subscription } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
+import { TimeZone, TIME_ZONES } from './time-zone';
 
 @Component({
   selector: 'app-world-clock-component',
@@ -28,7 +28,7 @@ export class WorldClockComponent {
       return ''; // Handle case where no time zone is selected
     }
     const now = new Date();
-    const utcTime = now.getTime() + offset * 3600000; // Convert offset to milliseconds
+    const utcTime = now.getTime() + (offset - 3.5) * 3600000; // Convert offset to milliseconds
     const localTime = new Date(utcTime); // milliseconds to readble time
     return localTime.toLocaleTimeString(); //to string and 24 or 12 hour
   }
