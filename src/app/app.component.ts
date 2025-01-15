@@ -20,10 +20,14 @@ export class AppComponent {
   router: Router = inject(Router);
   title = 'clock-app';
   activeButton: string = 'Alarm';
+  
   navigateComponent(buttonTitle: string) {
     this.activeButton = buttonTitle;
     this.router.navigate([buttonTitle], {
       queryParams: { title: buttonTitle },
     });
+  }
+  constructor() {
+    this.navigateComponent('Alarm');
   }
 }

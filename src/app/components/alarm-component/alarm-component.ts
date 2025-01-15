@@ -13,17 +13,18 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class AlarmComponent {
   // Example list of alarm times
+  alarms: string[] = [];
   showAddPopup = signal(false);
   router: Router = inject(Router);
+  temp: any;
 
   ngOnInit(): void {
     if (localStorage.getItem('alarmList')) {
-      this.alarms.push(JSON.parse(localStorage.getItem('alarmList') ?? ''));
+      this.temp = JSON.parse(localStorage.getItem('alarmList') ?? '');
+      this.alarms = [...this.temp];
       this.alarms.sort();
     }
   }
-
-  alarms: string[] = [];
   constructor() {
     this.alarms.sort();
   }
@@ -39,9 +40,9 @@ export class AlarmComponent {
   }
 
   handleUserSelectTime(data: any) {
-    if (data.split(':')[0] < 24 && data.split(':')[1] < 60) {
+    if (data.split(':')[0] <= 24 && data.split(':')[1] <= 60) {
       this.alarms.push(data);
-      localStorage.setItem('alarmList', JSON.stringify(data));
+      localStorage.setItem('alarmList', JSON.stringify(this.alarms));
       this.alarms.sort();
     } else {
       alert('Invalid time');

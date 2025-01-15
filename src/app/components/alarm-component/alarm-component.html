@@ -5,7 +5,9 @@
   <div
     class="text-gray-500 text-xl font-semibold rounded-md flex justify-between items-center p-4 w-full"
   >
+    @if (alarms.length>0) {
     <h2 class="drop-shadow-lg">Next Alarm at : {{ soonestAlarm }}</h2>
+    }
     <button
       class="font-bold px-4 py-2 bg-gray-200 rounded-3xl"
       (click)="showPopup()"
@@ -27,7 +29,7 @@
 
   <app-popup
     (userSelectedTime)="handleUserSelectTime($event)"
-    class="m-auto"
+    class="w-30"
     [(showPopup)]="showAddPopup"
   ></app-popup
   >}
