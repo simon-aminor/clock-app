@@ -27,7 +27,6 @@ export class AppWorldService {
     timeZones: TimeZone[]
   ): any {
     userTimeZones.find((zone) => {
-      
       if (zone.name == selectedTimeZone) {
         this.available = true;
       } else {

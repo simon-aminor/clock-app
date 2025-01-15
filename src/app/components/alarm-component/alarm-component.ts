@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AlarmCardComponent } from '../alarm-card-component/alarm-card-component';
 import { PopupComponent } from './popup/popup.component';
 import { Router, RouterModule } from '@angular/router';
+import { AppAlarmlist } from './alarm-list.service';
 
 @Component({
   selector: 'app-alarm',
@@ -17,20 +18,15 @@ export class AlarmComponent {
   showAddPopup = signal(false);
   router: Router = inject(Router);
   temp: any;
+  appAlarmsList = inject(AppAlarmlist);
 
-  ngOnInit(): void {
-    if (localStorage.getItem('alarmList')) {
-      this.temp = JSON.parse(localStorage.getItem('alarmList') ?? '');
-      this.alarms = [...this.temp];
-      this.alarms.sort();
-    }
-  }
   constructor() {
-    this.alarms.sort();
+    this.alarms = this.appAlarmsList.render(this.alarms);
   }
 
   // Get the soonest alarm time
   get soonestAlarm(): string {
+    // readonly function
     return this.alarms[0];
   }
 
@@ -40,18 +36,11 @@ export class AlarmComponent {
   }
 
   handleUserSelectTime(data: any) {
-    if (data.split(':')[0] <= 24 && data.split(':')[1] <= 60) {
-      this.alarms.push(data);
-      localStorage.setItem('alarmList', JSON.stringify(this.alarms));
-      this.alarms.sort();
-    } else {
-      alert('Invalid time');
-    }
+    this.appAlarmsList.addAlarm(this.alarms, data);
   }
 
   // Remove an alarm
   removeAlarm(alarm: string) {
-    this.alarms = this.alarms.filter((a) => a !== alarm);
-    this.alarms.sort();
+    this.alarms = this.appAlarmsList.remove(this.alarms, alarm);
   }
 }
