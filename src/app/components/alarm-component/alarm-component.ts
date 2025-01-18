@@ -4,6 +4,7 @@ import { AlarmCardComponent } from '../alarm-card-component/alarm-card-component
 import { PopupComponent } from './popup/popup.component';
 import { Router, RouterModule } from '@angular/router';
 import { AppAlarmlist } from './alarm-list.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alarm',
@@ -19,9 +20,14 @@ export class AlarmComponent {
   router: Router = inject(Router);
   temp: any;
   appAlarmsList = inject(AppAlarmlist);
+  subscription!: Subscription;
+  now!: any; // use and difine later
+  ring?: string; // undifind and use later
+  audio = new Audio('assets/din-ding-89718.mp3');
 
   constructor() {
     this.alarms = this.appAlarmsList.render(this.alarms);
+    this.refresh();
   }
 
   // Get the soonest alarm time
@@ -42,5 +48,35 @@ export class AlarmComponent {
   // Remove an alarm
   removeAlarm(alarm: string) {
     this.alarms = this.appAlarmsList.remove(this.alarms, alarm);
+  }
+
+  refresh() {
+    this.subscription = interval(1000).subscribe(() => {
+      this.now = new Date();
+      this.now = this.now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      });
+
+      this.ring = this.alarms.find((alarm) => {
+        return alarm == this.now;
+      });
+
+      if (this.ring) {
+        this.playAudio();
+      }
+    });
+  }
+  playAudio() {
+    this.audio.muted = true; // Start muted for autoplay
+    this.audio
+      .play()
+      .then(() => {
+        this.audio.muted = false; // Unmute after playback starts
+      })
+      .catch((error) => {
+        console.error('Audio playback failed:', error);
+      });
   }
 }

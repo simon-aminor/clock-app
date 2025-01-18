@@ -44,7 +44,7 @@ export class WorldClockComponent {
       this.subscription.unsubscribe();
     }
   }
-  removeTimeZone(zone: TimeZone) {
-    this.userTimeZones = this.userTimeZones.filter((z) => z !== zone);
+  removeTimeZone(zone: string) {
+    this.userTimeZones = this.appWorldList.remove(this.userTimeZones, zone);
   }
 }

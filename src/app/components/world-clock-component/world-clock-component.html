@@ -28,7 +28,10 @@
   @if (userTimeZones.length > 0) {
   <ul>
     @for (zone of userTimeZones; track $index) {
-    <li class="w-80 p-2 mb-3 bg-gray-200 rounded-xl flex justify-between">
+    <li
+      class="w-80 p-2 mb-3 bg-gray-200 rounded-xl flex justify-between"
+      (click)="removeTimeZone(zone.name)"
+    >
       <span>{{ zone.name }}:</span>
       <span>{{ getCurrentTime(zone.offset) }}</span>
     </li>

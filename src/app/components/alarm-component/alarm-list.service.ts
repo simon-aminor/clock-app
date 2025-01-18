@@ -5,13 +5,32 @@ import { Injectable } from '@angular/core';
 })
 export class AppAlarmlist {
   temp: any;
+  available?: boolean;
 
   // primitive types are not allowed in Angular services
   addAlarm(alarms: string[], data: any): void {
-    if (data.split(':')[0] <= 24 && data.split(':')[1] <= 60) {
+
+    alarms.find((alarm) => {
+      if (alarm == data) {
+        this.available = true;
+      } else {
+        this.available == false;
+      }
+    });
+
+    if (
+      data.split(':')[0] <= 24 &&
+      data.split(':')[1] <= 60 &&
+      !this.available
+    ) {
       alarms.push(data);
       localStorage.setItem('alarmList', JSON.stringify(alarms));
+      alarms = alarms.filter(
+        (value, index, self) => self.indexOf(value) === index
+      );
       alarms.sort();
+    } else if (this.available) {
+      alert('you already have this alarm');
     } else {
       alert('Invalid time');
     }

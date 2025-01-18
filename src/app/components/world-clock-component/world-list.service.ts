@@ -49,4 +49,10 @@ export class AppWorldService {
       userTimeZones;
     });
   }
+  remove(userTimeZones: TimeZone[], targetTimezone: string): TimeZone[] {
+    userTimeZones = userTimeZones.filter((t) => t.name !== targetTimezone);
+    localStorage.setItem('user timezone', JSON.stringify(userTimeZones));
+    return userTimeZones;
+    
+  }
 }
