@@ -37,7 +37,6 @@ export class AppWorldService {
     if (selectedTimeZone && !this.available) {
       const selected = timeZones.find((e) => e.name === selectedTimeZone);
       if (selected) userTimeZones.push(selected);
-      // this.refresh();
       this.set(userTimeZones);
     } else if (this.available) {
       alert('Time zone already added');
@@ -53,6 +52,5 @@ export class AppWorldService {
     userTimeZones = userTimeZones.filter((t) => t.name !== targetTimezone);
     localStorage.setItem('user timezone', JSON.stringify(userTimeZones));
     return userTimeZones;
-    
   }
 }
