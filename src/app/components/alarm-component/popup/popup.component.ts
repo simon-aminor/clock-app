@@ -17,11 +17,10 @@ export class PopupComponent {
   showPopup = model<boolean>(false);
 
   removePopup() {
-    this.router.navigate(['Alarm']);
+    this.showPopup.set(false);
   }
   getAlarmTime() {
-    this.showPopup.set(false);
     this.userSelectedTime.emit(this.data());
-     this.removePopup();
+    this.removePopup();
   }
 }

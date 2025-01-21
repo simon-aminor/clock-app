@@ -1,13 +1,17 @@
 <div
-  class="flex flex-col items-center margin p-6 h-[calc(100vh-60px)] bg-gray-50 rounded-es-3xl rounded-ee-3xl overflow-y-hidden"
+  [style.filter]="(!showAddPopup())? 'none': 'blur(2px)'"
+  class="relative flex flex-col items-center margin p-6 h-[calc(100vh-60px)] bg-gray-50 rounded-es-3xl rounded-ee-3xl overflow-y-hidden"
 >
-  @if (!showAddPopup()) {
   <div
     class="text-gray-500 text-xl font-semibold rounded-md flex justify-between items-center p-4 w-full"
   >
-    @if (alarms.length>0) {
-    <h2 class="drop-shadow-lg">Next Alarm at : {{ soonestAlarm }}</h2>
-    }
+    <h2
+      class="drop-shadow-lg"
+      [style.visibility]="(alarms.length>0)? 'visible': 'hidden'"
+    >
+      Next Alarm at : {{ soonestAlarm }}
+    </h2>
+
     <button
       class="font-bold px-4 py-2 bg-gray-200 rounded-3xl"
       (click)="showPopup()"
@@ -16,7 +20,7 @@
     </button>
   </div>
   @if (alarms.length>0) {
-  <div class="grid gap-4 w-full mt-8 overflow-scroll">
+  <div class="grid gap-4 w-full mt-8 overflow-scroll px-2">
     @for (alarm of alarms; track $index) {
     <app-alarm-card [alarm]="alarm" (remove)="removeAlarm(alarm)">
     </app-alarm-card>
@@ -25,12 +29,11 @@
 
   } @else if (alarms.length==0) {
   <h3 class="text-xl mt-8">you didn't set any alarm yet!</h3>
-  } } @if (showAddPopup()) {
-
-  <app-popup
-    (userSelectedTime)="handleUserSelectTime($event)"
-    class="w-30"
-    [(showPopup)]="showAddPopup"
-  ></app-popup
-  >}
+  }
 </div>
+<app-popup
+  (userSelectedTime)="handleUserSelectTime($event)"
+  class="w-30 absolute top-1/3 left-1/2 transform -translate-x-1/2 z-50 w-30"
+  [(showPopup)]="showAddPopup"
+  [style.visibility]="(showAddPopup())? 'visible': 'hidden'"
+></app-popup>

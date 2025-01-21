@@ -1,0 +1,18 @@
+.card:active {
+  animation: ping 1s;
+}
+
+@keyframes ping {
+  0% {
+  }
+
+  50% {
+    background-color: red;
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
