@@ -1,3 +1,19 @@
-.margin {
-  margin-bottom: 60px;
+.target {
+  animation: none; /* Default animation is off */
+  transform: scale(0); /* Initially hidden */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.target.active {
+  animation: popup 0.5s forwards; /* Animation runs when active */
+  transform: scale(1); /* Show the popup */
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
