@@ -20,7 +20,7 @@
     </button>
   </div>
   @if (alarms.length>0) {
-  <div class="grid gap-4 w-full py-14 overflow-scroll px-2 h-[88vh]">
+  <div class="w-full py-14 overflow-scroll px-2 h-[88vh]">
     @for (alarm of alarms; track $index) {
     <app-alarm-card [alarm]="alarm" (remove)="removeAlarm(alarm)">
     </app-alarm-card>
@@ -28,7 +28,7 @@
   </div>
 
   } @else if (alarms.length==0) {
-  <h3 class="text-xl mt-8">you didn't set any alarm yet!</h3>
+  <h3 class="text-xl mt-16">you didn't set any alarm yet!</h3>
   }
 </div>
 <app-popup
