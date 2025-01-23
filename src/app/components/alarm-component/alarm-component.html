@@ -33,8 +33,9 @@
 </div>
 <app-popup
   (userSelectedTime)="handleUserSelectTime($event)"
-  class="w-30 absolute top-1/3 left-1/2  z-50 w-30 "
+  class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white  rounded-lg shadow-lg transition-transform duration-300 scale-0"
+  [class.scale-100]="showAddPopup()"
   [(showPopup)]="showAddPopup"
-  [class.active]="showAddPopup()"
-  [style.visibility]="(showAddPopup())? 'visible': 'hidden'"
-></app-popup>
+  [style.visibility]="(showAddPopup()) ? 'visible' : 'visible'"
+>
+</app-popup>
