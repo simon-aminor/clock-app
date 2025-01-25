@@ -1,9 +1,9 @@
 <div
   [style.filter]="(!showAddPopup())? 'none': 'blur(2px)'"
-  class="relative flex flex-col items-center mb-16 p-6 bg-gray-50 rounded-es-3xl rounded-ee-3xl overflow-y-hidden"
+  class="relative flex flex-col items-center bg-gray-50 rounded-es-3xl rounded-ee-3xl overflow-y-hidden"
 >
   <div
-    class="text-gray-500 text-xl font-semibold flex justify-between items-center px-9 w-full fixed top-0 h-[8vh] z-50 bg-gray-50"
+    class="text-gray-500 text-xl font-semibold flex justify-between items-center px-9 w-full sticky top-6 h-[8vh] z-50 bg-gray-50"
   >
     <h2
       class="drop-shadow-lg"
@@ -20,7 +20,9 @@
     </button>
   </div>
   @if (alarms.length>0) {
-  <div class="w-full py-14 overflow-scroll px-2 h-[88vh]">
+  <div
+    class="w-full py-12 overflow-scroll h-[88vh] flex flex-col items-center gap-3"
+  >
     @for (alarm of alarms; track $index) {
     <app-alarm-card [alarm]="alarm" (remove)="removeAlarm(alarm)">
     </app-alarm-card>
@@ -28,7 +30,7 @@
   </div>
 
   } @else if (alarms.length==0) {
-  <h3 class="text-xl mt-16">you didn't set any alarm yet!</h3>
+  <h3 class="text-xl mt-16 mb-4">you didn't set any alarm yet!</h3>
   }
 </div>
 <app-popup
